@@ -10,8 +10,8 @@ describe SQLObject do
       self.finalize!
     end
 
-    class Human < SQLObject
-      self.table_name = 'humans'
+    class User < SQLObject
+      self.table_name = 'users'
 
       self.finalize!
     end
@@ -19,7 +19,7 @@ describe SQLObject do
 
   describe '::set_table/::table_name' do
     it '::set_table_name sets table name' do
-      expect(Human.table_name).to eq('humans')
+      expect(User.table_name).to eq('users')
     end
 
     it '::table_name generates default name' do
@@ -139,28 +139,28 @@ describe SQLObject do
 
   describe '#update' do
     it '#update changes attributes' do
-      human = Human.find(2)
+      user = User.find(2)
 
-      human.fname = 'Matthew'
-      human.lname = 'von Rubens'
-      human.update
+      user.fname = 'Matthew'
+      user.lname = 'von Rubens'
+      user.update
 
-      # pull the human again
-      human = Human.find(2)
-      expect(human.fname).to eq('Matthew')
-      expect(human.lname).to eq('von Rubens')
+      # pull the user again
+      user = User.find(2)
+      expect(user.fname).to eq('Matthew')
+      expect(user.lname).to eq('von Rubens')
     end
   end
 
   describe '#save' do
     it '#save calls save/update as appropriate' do
-      human = Human.new
-      expect(human).to receive(:insert)
-      human.save
+      user = User.new
+      expect(user).to receive(:insert)
+      user.save
 
-      human = Human.find(1)
-      expect(human).to receive(:update)
-      human.save
+      user = User.find(1)
+      expect(user).to receive(:update)
+      user.save
     end
   end
 end

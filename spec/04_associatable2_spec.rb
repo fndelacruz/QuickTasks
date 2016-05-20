@@ -6,13 +6,13 @@ describe 'Associatable' do
 
   before(:all) do
     class Cat < SQLObject
-      belongs_to :human, foreign_key: :owner_id
+      belongs_to :user, foreign_key: :owner_id
 
       finalize!
     end
 
-    class Human < SQLObject
-      self.table_name = 'humans'
+    class User < SQLObject
+      self.table_name = 'users'
 
       has_many :cats, foreign_key: :owner_id
       belongs_to :house
@@ -21,7 +21,7 @@ describe 'Associatable' do
     end
 
     class House < SQLObject
-      has_many :humans
+      has_many :users
 
       finalize!
     end
@@ -37,19 +37,19 @@ describe 'Associatable' do
 
     it 'stores `belongs_to` options' do
       cat_assoc_options = Cat.assoc_options
-      human_options = cat_assoc_options[:human]
+      user_options = cat_assoc_options[:user]
 
-      expect(human_options).to be_instance_of(BelongsToOptions)
-      expect(human_options.foreign_key).to eq(:owner_id)
-      expect(human_options.class_name).to eq('Human')
-      expect(human_options.primary_key).to eq(:id)
+      expect(user_options).to be_instance_of(BelongsToOptions)
+      expect(user_options.foreign_key).to eq(:owner_id)
+      expect(user_options.class_name).to eq('User')
+      expect(user_options.primary_key).to eq(:id)
     end
 
     it 'stores options separately for each class' do
-      expect(Cat.assoc_options).to have_key(:human)
-      expect(Human.assoc_options).to_not have_key(:human)
+      expect(Cat.assoc_options).to have_key(:user)
+      expect(User.assoc_options).to_not have_key(:user)
 
-      expect(Human.assoc_options).to have_key(:house)
+      expect(User.assoc_options).to have_key(:house)
       expect(Cat.assoc_options).to_not have_key(:house)
     end
   end
@@ -57,7 +57,7 @@ describe 'Associatable' do
   describe '#has_one_through' do
     before(:all) do
       class Cat
-        has_one_through :home, :human, :house
+        has_one_through :home, :user, :house
 
         self.finalize!
       end

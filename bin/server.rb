@@ -3,6 +3,7 @@ require 'pry'
 require_relative '../lib/router'
 require_relative '../lib/cats_controller'
 require_relative '../lib/cat.rb'
+require_relative '../lib/user.rb'
 
 router = Router.new
 router.draw do

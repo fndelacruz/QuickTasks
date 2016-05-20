@@ -9,8 +9,8 @@ describe 'Searchable' do
       finalize!
     end
 
-    class Human < SQLObject
-      self.table_name = 'humans'
+    class User < SQLObject
+      self.table_name = 'users'
 
       finalize!
     end
@@ -25,20 +25,20 @@ describe 'Searchable' do
   end
 
   it '#where can return multiple objects' do
-    humans = Human.where(house_id: 1)
-    expect(humans.length).to eq(2)
+    users = User.where(house_id: 1)
+    expect(users.length).to eq(2)
   end
 
   it '#where searches with multiple criteria' do
-    humans = Human.where(fname: 'Matt', house_id: 1)
-    expect(humans.length).to eq(1)
+    users = User.where(fname: 'Matt', house_id: 1)
+    expect(users.length).to eq(1)
 
-    human = humans[0]
-    expect(human.fname).to eq('Matt')
-    expect(human.house_id).to eq(1)
+    user = users[0]
+    expect(user.fname).to eq('Matt')
+    expect(user.house_id).to eq(1)
   end
 
   it '#where returns [] if nothing matches the criteria' do
-    expect(Human.where(fname: 'Nowhere', lname: 'Man')).to eq([])
+    expect(User.where(fname: 'Nowhere', lname: 'Man')).to eq([])
   end
 end
