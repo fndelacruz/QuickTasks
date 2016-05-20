@@ -1,4 +1,3 @@
-# require 'active_support/inflector'
 require_relative 'db_connection'
 require_relative 'searchable'
 require_relative 'associatable'
@@ -47,6 +46,9 @@ class SQLObject
   end
 
   def self.find(id)
+    raise "find argument must be an integer." if id.to_i == 0 && id != '0'
+
+    id = id.to_i
     result = DBConnection.execute(<<-SQL, id)
       SELECT
         *
