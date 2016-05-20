@@ -2,9 +2,12 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/inflector'
 require 'erb'
-require_relative './session'
+require_relative 'session'
+require_relative 'strong_params'
 
 class ControllerBase
+  include StrongParams
+
   attr_reader :req, :res, :params
 
   # Setup the controller
@@ -13,7 +16,7 @@ class ControllerBase
     @res = res
     @already_built_response = false
     @session = Session.new(req)
-    @params = route_params.merge @req.params
+    @params = Params.parameterize(route_params.merge @req.params)
   end
 
   # Helper method to alias @already_built_response
