@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login!(@user)
-      redirect_to '/cats'
+      redirect_to '/tasks'
     else
       render :new
     end

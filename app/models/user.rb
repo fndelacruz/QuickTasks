@@ -3,7 +3,7 @@ class User < SQLObject
 
   attr_accessor :password
 
-  has_many :cats, foreign_key: :owner_id
+  has_many :tasks, foreign_key: :owner_id
 
   def initialize(params = {})
     ensure_session_token!

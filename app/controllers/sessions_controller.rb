@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     )
     if user
       login!(user)
-      redirect_to '/cats'
+      redirect_to '/tasks'
     else
       @user = User.new(user_params)
       render :new
