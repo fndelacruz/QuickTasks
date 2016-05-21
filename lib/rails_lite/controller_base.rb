@@ -48,8 +48,11 @@ class ControllerBase
   # pass the rendered html to render_content
   def render(template_name)
     controller_name = self.class.to_s.gsub(/Controller$/, '').underscore
-    template = File.read("app/views/#{controller_name}/#{template_name}.html.erb")
-    render_content(ERB.new(template).result(binding), "text/html")
+    base_template = ERB.new File.read("app/views/layouts/application.html.erb")
+    page_template = ERB.new File.read("app/views/#{controller_name}/#{template_name}.html.erb")
+    page = page_template.result(call_binding)
+    content = base_template.result(call_binding { page })
+    render_content(content, "text/html")
   end
 
   # method exposing a `Session` object
@@ -60,5 +63,11 @@ class ControllerBase
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
     send(name)
+  end
+
+  private
+
+  def call_binding
+    binding
   end
 end
