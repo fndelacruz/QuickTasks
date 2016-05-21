@@ -22,7 +22,7 @@ module StrongParams
 
     def permit(*keys)
       keys.map!(&:to_s)
-      @hash.select { |key| keys.include? key }
+      Params.parameterize(@hash.select { |key| keys.include? key })
     end
 
     def [](key)
