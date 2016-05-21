@@ -21,11 +21,17 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.owner_id = current_user.id
-    @task.insert
+    @task.save
+    redirect_to '/tasks'
+  end
+
+  def update
+    task = Task.find(params[:id])
+    task.update(task_params) if task.owner_id == current_user.id
     redirect_to '/tasks'
   end
 
   def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content, :complete)
   end
 end

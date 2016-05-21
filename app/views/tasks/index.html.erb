@@ -3,7 +3,21 @@
 
 <ul>
   <% @tasks.each do |task| %>
-    <li><a href="/tasks/<%= task.id %>"><%= task.content %></a></li>
+    <li>
+      <a href="/tasks/<%= task.id %>"><%= task.content %></a>
+      <ul>
+        <form action="<%= "/tasks/#{task.id}" %>" method='POST'>
+          <input type='hidden' name='_method' value='PATCH'>
+            <input
+              type='hidden'
+              name='task[complete]'
+              value='<%= task.complete? ? 0 : 1 %>'>
+            <input
+              type='submit'
+              value='<%= task.complete? ? 'Undo done!' : 'Mark complete!' %>'>
+        </form>
+      </ul>
+    </li>
   <% end %>
 </ul>
 

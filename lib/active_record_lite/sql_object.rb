@@ -97,7 +97,15 @@ class SQLObject
     self.class.columns.reject { |column| column == :id }
   end
 
-  def update
+  def update(params)
+    raise "no id provided" unless id
+    params.each do |attr_name, value|
+      send("#{attr_name}=", value)
+    end
+    save
+  end
+
+  def sql_update
     raise "no id provided" unless id
     set_string = non_id_columns.map { |col| "#{col} = ?" }.join(", ")
     values = attributes.values_at(*non_id_columns) << id
@@ -112,6 +120,6 @@ class SQLObject
   end
 
   def save
-    id ? update : insert
+    id ? sql_update : insert
   end
 end

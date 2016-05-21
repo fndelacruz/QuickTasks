@@ -7,6 +7,7 @@ CREATE TABLE users (
 
 CREATE TABLE tasks (
   id INTEGER PRIMARY KEY,
+  complete INTEGER DEFAULT 0,
   content VARCHAR(255) NOT NULL,
   owner_id INTEGER NOT NULL,
 

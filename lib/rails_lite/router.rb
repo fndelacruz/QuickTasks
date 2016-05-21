@@ -20,7 +20,7 @@ class Router
 
   # make each of these methods that
   # when called add route
-  [:get, :post, :put, :delete].each do |http_method|
+  [:get, :post, :put, :patch, :delete].each do |http_method|
     define_method(http_method) do |pattern, controller, action_name|
       add_route pattern, http_method, controller, action_name
     end

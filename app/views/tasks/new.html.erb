@@ -2,6 +2,7 @@
 
 <form action='/tasks' method='POST'>
   <label for='task_content'>Content</label>
+  <input type='hidden' name='task[complete]' value='0'>
   <input type='text' name='task[content]' id='task_content'>
 
   <input type='submit' value='Create Task!'>
