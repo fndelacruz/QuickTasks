@@ -33,12 +33,22 @@ class Router
 
   # either throw 404 or call run on a matched route
   def run(req, res)
+    parse_http_methods!(req)
     matching_route = match(req)
     if matching_route
       matching_route.run(req, res)
     else
       res.status = 404
       res.write "404 route not found"
+    end
+  end
+
+  # check if _method is present to allow PATCH & DELETE http methods
+  def parse_http_methods!(req)
+    if (method = req.params['_method'])
+      if ['delete', 'put', 'patch'].include?(method.downcase)
+        req.env['REQUEST_METHOD'] = method.upcase
+      end
     end
   end
 end
