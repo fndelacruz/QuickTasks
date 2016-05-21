@@ -1,6 +1,4 @@
-require_relative 'controller_base'
-
-class CatsController < ControllerBase
+class CatsController < ApplicationController
   def index
     @cats = Cat.all
     render :index

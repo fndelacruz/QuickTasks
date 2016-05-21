@@ -1,11 +1,7 @@
-require 'rack'
-require 'pry'
-require_relative '../lib/router'
-require_relative '../lib/cats_controller'
-require_relative '../lib/cat.rb'
-require_relative '../lib/user.rb'
+require_relative '../lib/application_base.rb'
 
 router = Router.new
+
 router.draw do
   get Regexp.new("^/cats/(?<id>\\d+)\/?$"), CatsController, :show
   get Regexp.new("^/cats\/?$"), CatsController, :index
