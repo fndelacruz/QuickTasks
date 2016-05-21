@@ -1,7 +1,11 @@
 class CatsController < ApplicationController
   def index
-    @cats = Cat.all
-    render :index
+    if current_user
+      @cats = Cat.all
+      render :index
+    else
+      redirect_to '/session/new'
+    end
   end
 
   def show

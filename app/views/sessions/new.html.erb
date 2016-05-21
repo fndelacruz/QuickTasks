@@ -1,0 +1,13 @@
+<h1>Log In</h1>
+
+<form action='/session' method='POST'>
+  <label for='user_username'>Username</label>
+  <input type='text' name='user[username]' value='<%= @user.username %>' id='user_username'>
+
+  <label for='user_password'>Password</label>
+  <input type='text' name='user[password]' id='user_password'>
+
+  <input type='submit' value='Sign in!'>
+</form>
+
+<div><a href='/users/new'>Don't have an account? Click here to sign up.</a></div>

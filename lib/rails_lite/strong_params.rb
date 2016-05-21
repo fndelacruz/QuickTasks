@@ -33,6 +33,13 @@ module StrongParams
       @hash[key.to_s] = val
     end
 
+    def each(&blk)
+      @hash.each do |key, val|
+        yield(key, val)
+      end
+      self
+    end
+
     def inspect
       "#{@hash}"
     end

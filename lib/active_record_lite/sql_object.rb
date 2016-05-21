@@ -67,7 +67,7 @@ class SQLObject
       if self.class.columns.include?(attr_name)
         send("#{attr_name}=", value)
       else
-        raise "unknown attribute '#{attr_name}'"
+        try("#{attr_name}=", value)
       end
     end
   end
@@ -93,10 +93,14 @@ class SQLObject
     self.id = DBConnection.last_insert_row_id
   end
 
+  def non_id_columns
+    self.class.columns.reject { |column| column == :id }
+  end
+
   def update
     raise "no id provided" unless id
-    set_string = self.class.columns[1..-1].map { |col| "#{col} = ?" }.join(", ")
-    values = attribute_values[1..-1] << id
+    set_string = non_id_columns.map { |col| "#{col} = ?" }.join(", ")
+    values = attributes.values_at(*non_id_columns) << id
     DBConnection.execute(<<-SQL, *values)
       UPDATE
         #{self.class.table_name}

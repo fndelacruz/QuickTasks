@@ -1,7 +1,14 @@
 <h1>Cats Index</h1>
+<h2>Hello, <%= current_user %></h2>
+
 <ul>
   <% @cats.each do |cat| %>
     <li><a href="/cats/<%= cat.id %>"><%= cat.name %></a></li>
   <% end %>
 </ul>
+
 <div><a href='/cats/new'>Create New Cat</a></div>
+<form action='/session' method='POST'>
+  <input type='hidden' name='_method' value='DELETE'>
+  <input type='submit' value='Sign Out'>
+</form>

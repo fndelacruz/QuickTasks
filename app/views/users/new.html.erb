@@ -1,0 +1,13 @@
+<h1>Sign Up</h1>
+
+<form action='/users' method='POST'>
+  <label for='user_username'>Username</label>
+  <input type='text' name='user[username]' id='user_username'>
+
+  <label for='user_password'>Password</label>
+  <input type='text' name='user[password]' id='user_password'>
+
+  <input type='submit' value='Sign up!'>
+</form>
+
+<div><a href='/session/new'>Have an account? Click here to log in.</a></div>
