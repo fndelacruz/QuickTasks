@@ -6,6 +6,8 @@ router.draw do
   # root redirects to TasksController :index
   get Regexp.new("^/$"), TasksController, :index
 
+  get Regexp.new("^/public/(?<filepath>\\S+)\/?$"), StaticAssetsController, :show
+
   get Regexp.new("^/session/new\/?$"), SessionsController, :new
   post Regexp.new("^/session\/?$"), SessionsController, :create
   delete Regexp.new("^/session\/?$"), SessionsController, :destroy
