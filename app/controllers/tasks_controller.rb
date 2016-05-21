@@ -31,6 +31,12 @@ class TasksController < ApplicationController
     redirect_to '/tasks'
   end
 
+  def destroy
+    task = Task.find(params[:id])
+    task.delete if task.owner_id == current_user.id
+    redirect_to '/tasks'
+  end
+
   def task_params
     params.require(:task).permit(:content, :complete)
   end

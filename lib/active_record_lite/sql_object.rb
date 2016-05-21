@@ -119,6 +119,16 @@ class SQLObject
     SQL
   end
 
+  def delete
+    raise "no id provided" unless id
+    DBConnection.execute(<<-SQL, id)
+      DELETE FROM
+        #{self.class.table_name}
+      WHERE
+        id = ?
+    SQL
+  end
+
   def save
     id ? sql_update : insert
   end

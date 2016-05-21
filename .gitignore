@@ -1,0 +1,2 @@
+# Ignore sqlite3 database file
+/lib/active_record_lite/tasks.db
