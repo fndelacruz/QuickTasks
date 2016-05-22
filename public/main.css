@@ -14,26 +14,9 @@ img, article, header, footer, nav, small, form, label, input, textarea, time {
   background: transparent;
 }
 
-/*input[type="password"],
-input[type="email"],
-input[type="text"],
-input[type="submit"],
-textarea,
-button {
-  -webkit-appearance: none;
-  appearance: none;
+input:focus {
   outline: 0;
   outline-offset: 0;
-}*/
-
-textarea:focus {
-  outline: 0;
-  outline-offset: 0;
-}
-
-html {
-  font-family: 'Ubuntu', sans-serif;
-  font-weight: 300;
 }
 
 ul, li {
@@ -46,23 +29,6 @@ img {
   height: auto;
 }
 
-input[type='image'], input[type='submit'] {
-  cursor: pointer;
-}
-
-input[type='submit'] {
-  /*padding: 5px 10px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: color 200ms, background 200ms;*/
-}
-
-input[type='submit']:hover {
-  /*background: #000;
-  color: #fff;*/
-}
-
 .group:after   {
   display: block;
   content: '';
@@ -71,28 +37,76 @@ input[type='submit']:hover {
 
 /* styles */
 
+/* common */
+
+input[type='image'], input[type='submit'] {
+  cursor: pointer;
+}
+
 html {
   background: #EEEEEE;
   font-size: 24px;
   color: #222;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
 }
 
-input[type='text'] {
+input[type='text'], input[type='submit'], input[type='password'] {
   width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box
 }
 
 h1 {
   padding: 5px 0;
   font-size: 76px;
   font-family: 'Poiret One', cursive;
-  color: #D35400;
+  color: #FF885A;
   text-align: center;
 }
+
+h1 a {
+  font: inherit;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/* auth */
+
+.auth-container {
+  margin: 10px auto;
+  padding: 25px;
+  background: #fff;
+  width: 400px;
+  box-shadow: 0px 5px 10px 2px #bbb;
+}
+
+.auth-container input[type='text'],
+.auth-container input[type='password'] {
+  outline: 1px solid #7FA4FF;
+  padding: 10px;
+  margin-bottom: 24px;
+}
+
+.auth-container input[type='submit'] {
+  margin-bottom: 20px;
+  background: #FF885A;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.auth-nav {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* tasks */
 
 .notepad {
   background: #fff;
   width: 600px;
-  left: 50%;
   margin: 10px auto;
   box-shadow: 0px 5px 10px 2px #bbb;
 }
@@ -108,22 +122,22 @@ h1 {
   outline: none;
 }
 
-::-webkit-input-placeholder {
+#task-content::-webkit-input-placeholder {
    color: #eee;
    font-style: italic;
 }
 
-:-moz-placeholder { /* Firefox 18- */
+#task-content:-moz-placeholder { /* Firefox 18- */
    color: #eee;
    font-style: italic;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+#task-content::-moz-placeholder {  /* Firefox 19+ */
    color: #eee;
    font-style: italic;
 }
 
-:-ms-input-placeholder {
+#task-content:-ms-input-placeholder {
    color: #eee;
    font-style: italic;
 }
@@ -151,6 +165,7 @@ h1 {
   float: left;
   width: 510px;
   padding: 10px 0;
+  overflow-wrap: break-word;
 }
 
 .task-complete {
