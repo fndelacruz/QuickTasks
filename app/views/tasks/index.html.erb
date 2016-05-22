@@ -34,6 +34,15 @@
       </li>
     <% end %>
   </ul>
+  <% unless @tasks.empty? %>
+    <div class='tasks-footer'>
+      <div class='tasks-progress-bar' style='width:<%= @tasks_pct %>%;'></div>
+      <div class='tasks-remaining-counter'>
+        <%= @tasks_left %>
+        <%= @tasks_left == 1 ? 'task' : 'tasks' %> left
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <footer class='index-footer'>

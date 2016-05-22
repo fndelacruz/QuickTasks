@@ -187,6 +187,23 @@ li:hover .task-delete > input[type='submit'] {
   display: block;
 }
 
+.tasks-footer {
+  position: relative;
+  font-size: 14px;
+}
+
+.tasks-progress-bar {
+  position: absolute;
+  height: 100%;
+  background: #C5EADB;
+}
+
+.tasks-remaining-counter {
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+}
+
 .index-footer {
   margin: 18px;
   font-size: 12px;
