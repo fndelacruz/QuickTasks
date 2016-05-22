@@ -1,38 +1,44 @@
-<h1>Tasks Index</h1>
-<h2>Hello, <%= current_user %></h2>
+<div class='notepad'>
+  <div class='task-form-container'>
+    <form action='/tasks' method='POST' id='task-form'>
+      <input type='hidden' name='task[complete]' value='0'>
+      <input
+        type='text'
+        name='task[content]'
+        placeholder='What do you need to do, <%= current_user %>?'
+        autofocus id='task-content'>
+    </form>
+  </div>
+  <ul class='tasks-list'>
+    <% @tasks.each do |task| %>
+      <li class='group'>
+        <form class='task-complete-toggle' action="<%= "/tasks/#{task.id}" %>" method='POST'>
+          <input type='hidden' name='_method' value='PATCH'>
+          <input
+            type='hidden'
+            name='task[complete]'
+            value='<%= task.complete? ? 0 : 1 %>'>
+          <input
+            type='image'
+            src='<%= "public/complete-#{task.complete? ? 'on' : 'off'}.png" %>'>
+        </form>
 
-<ul>
-  <% @tasks.each do |task| %>
-    <li>
-      <a href="/tasks/<%= task.id %>"><%= task.content %></a>
-      <ul>
-        <li>
-          <form action="<%= "/tasks/#{task.id}" %>" method='POST'>
-            <input type='hidden' name='_method' value='PATCH'>
-              <input
-                type='hidden'
-                name='task[complete]'
-                value='<%= task.complete? ? 0 : 1 %>'>
-              <input
-                type='submit'
-                value='<%= task.complete? ? 'Undo done!' : 'Mark complete!' %>'>
-          </form>
-        </li>
-        <li>
-          <form action="<%= "/tasks/#{task.id}" %>" method='POST'>
-            <input type='hidden' name='_method' value='DELETE'>
-              <input
-                type='submit'
-                value='Delete task'>
-          </form>
-        </li>
-      </ul>
-    </li>
-  <% end %>
-</ul>
+        <div class="task-container <%= task.complete? ? 'task-complete' : '' %>">
+          <%= task.content %>
+        </div>
 
-<div><a href='/tasks/new'>Create New Task</a></div>
-<form action='/session' method='POST'>
-  <input type='hidden' name='_method' value='DELETE'>
-  <input type='submit' value='Sign Out'>
-</form>
+        <form class='task-delete' action="<%= "/tasks/#{task.id}" %>" method='POST'>
+          <input type='hidden' name='_method' value='DELETE'>
+          <input type='submit' value='✕'>
+        </form>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<footer class='index-footer'>
+  <form action='/session' method='POST'>
+    <input type='hidden' name='_method' value='DELETE'>
+    <input type='submit' value='Sign Out'>
+  </form>
+</footer>
