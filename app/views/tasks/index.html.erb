@@ -35,12 +35,18 @@
     <% end %>
   </ul>
   <% unless @tasks.empty? %>
-    <div class='tasks-footer'>
+    <div class='tasks-footer group'>
       <div class='tasks-progress-bar' style='width:<%= @tasks_pct %>%;'></div>
       <div class='tasks-remaining-counter'>
         <%= @tasks_left %>
         <%= @tasks_left == 1 ? 'task' : 'tasks' %> left
       </div>
+      <% if @tasks_done > 0 %>
+        <form class='tasks-delete-completed-button' action="/tasks/complete" method='POST'>
+          <input type='hidden' name='_method' value='DELETE'>
+          <input type='submit' value='Delete complete'>
+        </form>
+      <% end %>
     </div>
   <% end %>
 </div>

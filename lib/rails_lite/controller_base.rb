@@ -74,4 +74,14 @@ class ControllerBase
   def call_binding
     binding
   end
+
+  def throw_403
+    res.status = 403
+    res.write "403 unauthorized access"
+  end
+
+  def throw_404(message='404 resource not found')
+    res.status = 404
+    res.write(message)
+  end
 end

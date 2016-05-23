@@ -203,6 +203,22 @@ li:hover .task-delete > input[type='submit'] {
   padding: 10px;
   position: relative;
   z-index: 1;
+  float: left;
+}
+
+.tasks-delete-completed-button {
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+  float: right;
+}
+
+.tasks-delete-completed-button > input[type='submit'] {
+  color: #999;
+}
+
+.tasks-delete-completed-button > input[type='submit']:hover {
+  color: #000;
 }
 
 .index-footer {

@@ -39,9 +39,23 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = Task.find(params[:id])
-    task.delete if task.owner_id == current_user.id
-    redirect_to '/tasks'
+    if params[:id]
+      task = Task.find(params[:id])
+      if task.owner_id == current_user.id
+        task.delete
+        redirect_to '/tasks'
+      else
+        throw_403
+      end
+    elsif params[:filter]
+      if params[:filter] == 'complete'
+        tasks = Task.where(owner_id: current_user.id, complete: 1)
+        tasks.delete
+        redirect_to '/tasks'
+      else
+        throw_404
+      end
+    end
   end
 
   def task_params

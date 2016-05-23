@@ -19,6 +19,7 @@ router.draw do
   patch Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :update
   put Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :update
   delete Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :destroy
+  delete Regexp.new("^/tasks/(?<filter>complete)\/?$"), TasksController, :destroy
   get Regexp.new("^/tasks\/?$"), TasksController, :index
   get Regexp.new("^/tasks/new\/?$"), TasksController, :new
   post Regexp.new("^/tasks\/?$"), TasksController, :create

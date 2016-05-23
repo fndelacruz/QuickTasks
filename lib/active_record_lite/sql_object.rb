@@ -1,6 +1,7 @@
 require_relative 'db_connection'
 require_relative 'searchable'
 require_relative 'associatable'
+require_relative 'relation'
 
 class SQLObject
   extend Searchable
@@ -42,7 +43,7 @@ class SQLObject
   end
 
   def self.parse_all(results)
-    results.map { |result| new(result) }
+    ActiveRecordLite_Relation.new results.map { |result| new result }
   end
 
   def self.find(id)
