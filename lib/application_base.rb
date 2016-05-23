@@ -1,6 +1,6 @@
 require 'rack'
 require 'pry'
-require 'Bcrypt'
+require 'bcrypt'
 require 'byebug'
 require_relative 'active_record_lite/sql_object'
 require_relative 'rails_lite/controller_base'
