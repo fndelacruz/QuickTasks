@@ -6,35 +6,53 @@
         type='text'
         name='task[content]'
         placeholder='What do you need to do, <%= current_user %>?'
-        autofocus id='task-content'>
+        <% if self.action == :index %>
+          autofocus
+        <% end %>
+        id='task-content'>
     </form>
   </div>
-  <ul class='tasks-list'>
-    <% @tasks.each do |task| %>
-      <li class='group'>
-        <form class='task-complete-toggle' action="<%= "/tasks/#{task.id}" %>" method='POST'>
-          <input type='hidden' name='_method' value='PATCH'>
-          <input
-            type='hidden'
-            name='task[complete]'
-            value='<%= task.complete? ? 0 : 1 %>'>
-          <input
-            type='image'
-            src='<%= "public/complete-#{task.complete? ? 'on' : 'off'}.png" %>'>
-        </form>
-
-        <div class="task-container <%= task.complete? ? 'task-complete' : '' %>">
-          <%= task.content %>
-        </div>
-
-        <form class='task-delete' action="<%= "/tasks/#{task.id}" %>" method='POST'>
-          <input type='hidden' name='_method' value='DELETE'>
-          <input type='submit' value='✕'>
-        </form>
-      </li>
-    <% end %>
-  </ul>
   <% unless @tasks.empty? %>
+    <ul class='tasks-list'>
+      <% @tasks.each do |task| %>
+        <li class='task-container group'>
+          <% if self.action == :edit && @task.id == task.id %>
+            <form class='task-edit-form' action='/tasks/<%= @task.id %>' method='POST'>
+              <input type='hidden' name='_method' value='PATCH'>
+              <input
+                type='text'
+                name='task[content]'
+                value='<%= @task.content %>'
+                >
+            </form>
+          <% else %>
+            <form
+              class='task-complete-toggle'
+              action="<%= "/tasks/#{task.id}" %>"
+              method='POST'>
+              <input type='hidden' name='_method' value='PATCH'>
+              <input
+                type='hidden'
+                name='task[complete]'
+                value='<%= task.complete? ? 0 : 1 %>'>
+              <input
+                type='image'
+                src='<%= "/public/complete-#{task.complete? ? 'on' : 'off'}.png" %>'>
+            </form>
+            <div
+              class="task-content-show <%= task.complete? ? 'task-complete' : '' %>"
+              id='task-<%= task.id %>'>
+              <%= task.content %>
+            </div>
+            <form class='task-delete' action="<%= "/tasks/#{task.id}" %>" method='POST'>
+              <input type='hidden' name='_method' value='DELETE'>
+              <input type='submit' value='✕'>
+            </form>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
     <div class='tasks-footer group'>
       <div class='tasks-progress-bar' style='width:<%= @tasks_pct %>%;'></div>
       <div class='tasks-remaining-counter'>

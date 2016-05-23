@@ -15,13 +15,12 @@ router.draw do
   get Regexp.new("^/users/new\/?$"), UsersController, :new
   post Regexp.new("^/users\/?$"), UsersController, :create
 
-  get Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :show
+  get Regexp.new("^/tasks/(?<id>\\d+)/edit\/?$"), TasksController, :edit
   patch Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :update
   put Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :update
   delete Regexp.new("^/tasks/(?<id>\\d+)\/?$"), TasksController, :destroy
   delete Regexp.new("^/tasks/(?<filter>complete)\/?$"), TasksController, :destroy
   get Regexp.new("^/tasks\/?$"), TasksController, :index
-  get Regexp.new("^/tasks/new\/?$"), TasksController, :new
   post Regexp.new("^/tasks\/?$"), TasksController, :create
 end
 

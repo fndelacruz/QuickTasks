@@ -8,7 +8,7 @@ require_relative 'strong_params'
 class ControllerBase
   include StrongParams
 
-  attr_reader :req, :res, :params
+  attr_reader :req, :res, :params, :action
 
   # Setup the controller
   def initialize(req, res, route_params={})
@@ -66,6 +66,9 @@ class ControllerBase
 
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
+    # used for self-reflection in views
+    @action = name
+
     send(name)
   end
 
