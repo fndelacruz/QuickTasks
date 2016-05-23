@@ -44,7 +44,8 @@ input[type='image'], input[type='submit'] {
 }
 
 html {
-  background: #EEEEEE;
+  background: url(/public/crossword.png);
+  background-repeat: repeat;
   font-size: 24px;
   color: #222;
   font-family: 'Ubuntu', sans-serif;

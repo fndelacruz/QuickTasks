@@ -11,7 +11,7 @@ class StaticAssetsController < ApplicationController
     file = File.read("./public/#{params[:filepath]}")
     file_extension = params[:filepath].match(/.(\w+)$/)[1]
     content_type = CONTENT_TYPES[file_extension]
-    render_content(file, content_type)
+    render_content(file, content_type, true)
   rescue Errno::ENOENT => e
     if e.message.match /^No such file or directory @ rb_sysopen/
       throw_404

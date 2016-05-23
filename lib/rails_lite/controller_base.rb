@@ -36,9 +36,13 @@ class ControllerBase
   # Populate the response with content.
   # Set the response's content type to the given type.
   # Raise an error if the developer tries to double render.
-  def render_content(content, content_type)
+  def render_content(content, content_type, cached=false)
     raise "Already built response!" if already_built_response?
     @res['Content-Type'] = content_type
+    if cached
+      @res['Cache-Control'] = "public; max-age=31536000"
+      @res['Expires'] = (Time.now + 1.year).httpdate
+    end
     @res.write(content)
     @already_built_response = true
     session.store_session @res
