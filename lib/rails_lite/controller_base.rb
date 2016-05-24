@@ -4,11 +4,12 @@ require 'active_support/inflector'
 require 'erb'
 require_relative 'session'
 require_relative 'strong_params'
+require_relative 'flash'
 
 class ControllerBase
   include StrongParams
 
-  attr_reader :req, :res, :params, :action
+  attr_reader :req, :res, :params, :action, :session, :flash
 
   # Setup the controller
   def initialize(req, res, route_params={})
@@ -16,6 +17,7 @@ class ControllerBase
     @res = res
     @already_built_response = false
     @session = Session.new(req)
+    @flash = Flash.new(req)
     @params = Params.parameterize(route_params.merge @req.params)
   end
 
@@ -29,8 +31,7 @@ class ControllerBase
     raise "Already built response!" if already_built_response?
     @res['Location'] = url
     @res.status = 302
-    @already_built_response = true
-    session.store_session @res
+    finalize_response(:redirect)
   end
 
   # Populate the response with content.
@@ -44,8 +45,7 @@ class ControllerBase
       @res['Expires'] = (Time.now + 1.year).httpdate
     end
     @res.write(content)
-    @already_built_response = true
-    session.store_session @res
+    finalize_response(:render)
   end
 
   # use ERB and binding to evaluate templates
@@ -59,11 +59,6 @@ class ControllerBase
     render_content(content, "text/html")
   end
 
-  # method exposing a `Session` object
-  def session
-    @session
-  end
-
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
     # used for self-reflection in views
@@ -73,6 +68,14 @@ class ControllerBase
   end
 
   private
+
+  def finalize_response(response_type)
+    flash.store_flash @res
+    # elsif response_type == :render
+    #   flash.clear_flash @res
+    @already_built_response = true
+    session.store_session @res
+  end
 
   def call_binding
     binding

@@ -18,6 +18,14 @@
     <input type='submit' value='Sign In'>
   </form>
 
+  <% if flash[:auth_notices] %>
+    <ul class='auth-notices'>
+      <% flash[:auth_notices].each do |auth_notice| %>
+        <li><%= auth_notice %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <div class='auth-nav'>
     <a href='/users/new'>Don't have an account? Sign up here.</a>
   </div>

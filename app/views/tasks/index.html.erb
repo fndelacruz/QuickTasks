@@ -69,7 +69,12 @@
   <% end %>
 </div>
 
-<footer class='index-footer'>
+  <footer class='index-footer'>
+   <% if flash[:first_load] %>
+     <div class='index-footer-tip'>
+       Tip: Double-click on a task to edit it.
+     </div>
+   <% end %>
   <form action='/session' method='POST'>
     <input type='hidden' name='_method' value='DELETE'>
     <input type='submit' value='Sign Out'>

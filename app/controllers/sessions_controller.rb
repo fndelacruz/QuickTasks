@@ -11,15 +11,20 @@ class SessionsController < ApplicationController
     )
     if user
       login!(user)
+      flash[:first_load] = true
       redirect_to '/tasks'
     else
       @user = User.new(user_params)
+      flash.now[:auth_notices] ||= []
+      flash.now[:auth_notices] << 'User not found with those credentials.'
       render :new
     end
   end
 
   def destroy
     logout!
+    flash[:auth_notices] ||= []
+    flash[:auth_notices] << 'See you next time!'
     redirect_to '/session/new'
   end
 

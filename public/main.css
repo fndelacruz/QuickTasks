@@ -103,6 +103,13 @@ h1 a {
   font-size: 14px;
 }
 
+.auth-notices {
+  font-size: 18px;
+  text-align: center;
+  color: #f00;
+  margin-bottom: 20px;
+}
+
 /* tasks */
 
 .notepad {
@@ -222,9 +229,24 @@ li:hover .task-delete > input[type='submit'] {
 }
 
 .index-footer {
-  margin: 18px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 12px;
+  color: #999;
   text-align: center;
+}
+
+.index-footer > * {
+  margin: 5px auto;
+}
+
+.index-footer-tip {
+  margin-bottom: 10px;
+}
+
+.index-footer input[type='submit']:hover {
+  color: #000;
 }
 
 /* tasks edit */
