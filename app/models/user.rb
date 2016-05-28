@@ -1,6 +1,4 @@
 class User < SQLObject
-  finalize!
-
   attr_accessor :password
 
   has_many :tasks, foreign_key: :owner_id
