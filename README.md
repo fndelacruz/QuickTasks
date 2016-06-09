@@ -19,11 +19,9 @@ strong params, and serving of cached static assets. To keep user credentials
 secure, Bcrypt is used to store salted password hashes; user passwords are NEVER
 stored on the database.
 
-## How to use
+## How to use on a local machine
 
-### Local server
-
-#### OS X Ruby installation
+#### Ruby installation
 
 To run QuickTasks on your local machine, you need Ruby. For OS X systems, you
 can prepare to install Ruby by doing the following:
@@ -68,7 +66,7 @@ gems and run `ruby bin/server.rb` to start the server.
 
 Access the application [here][localhost].
 
-### AWS EC2 server
+## How to use on AWS EC2
 
 #### AWS EC2 setup
 
@@ -85,12 +83,11 @@ Connect to your micro instance with `ssh -i "your_key.pem" ubuntu@your.server.ip
 where "your_key.pem" is the full path to the private key associated with that
 instance's security group.
 
-#### Ubuntu Ruby installation
+#### Ruby installation
 
 Install rbenv and Ruby by following the [instructions][digitalocean] under
 the "Install rbenv" and "Install Ruby" headings. You can skip the rest of the
 instructions for the same reason above.
-
 
 #### Run the server
 
