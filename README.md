@@ -4,8 +4,8 @@
 
 ## Summary
 
-QuickTasks is a demonstration checklist application built on top of a
-custom-built MVC framework modeled after Rails. I built this framework to
+QuickTasks is a demonstration checklist application written on top of a
+custom-built MVC framework modeled after Rails. I made this framework to
 have a stronger understanding of what goes on under the Rails hood. The
 framework consists of two major components: ActiveRecordLite and RailsLite.
 
